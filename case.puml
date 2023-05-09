@@ -1,0 +1,253 @@
+@startuml
+class com.sagarkhurana.quizforfun.EditPasswordActivity {
+- EditText etOldPassword
+# void onCreate(Bundle)
+- void changePassword(String,String)
+- boolean validateInput(String,String,String)
+}
+class com.sagarkhurana.quizforfun.EditPasswordActivity$UpdatePasswordTask {
+- User user
+# Void doInBackground(Void)
+# void onPostExecute(Void)
+}
+class com.sagarkhurana.quizforfun.HistoryActivity {
+- RecyclerView rvHistory
+- List<UserWithAttempts> userWithAttempts
+- TextView tvTotalPoints
+# void onCreate(Bundle)
+}
+class com.sagarkhurana.quizforfun.HistoryActivity$GetAllUserAttemptTask {
+- String email
+~ ArrayList<Attempt> attempts
+# Void doInBackground(Void)
+# void onPostExecute(Void)
+}
+class com.sagarkhurana.quizforfun.HistoryActivity$AttemptCreatedTimeComparator {
++ int compare(Attempt,Attempt)
+}
+class com.sagarkhurana.quizforfun.RegisterActivity {
+# void onCreate(Bundle)
+- boolean validateInputs(String,String,String)
+}
+class com.sagarkhurana.quizforfun.RegisterActivity$RegisterUserTask {
+- String username
+- String email
+- String password
+- User user
+- boolean isOkay
+# Void doInBackground(Void)
+# void onPostExecute(Void)
+}
+abstract class com.sagarkhurana.quizforfun.data.UserDatabase {
++ {abstract}UserDao userDao()
+}
+class com.sagarkhurana.quizforfun.MathQuizActivity {
+- int currentQuestionIndex
+- TextView tvQuestion
+- Button btnNext
+- List<String> questions
+- int correctQuestion
+- EditText etAnswer
+- HashMap<String,String> questionsAnswerMap
+# void onCreate(Bundle)
+- void displayNextQuestions()
+- void displayData()
+}
+class com.sagarkhurana.quizforfun.data.UserWithAttempts {
+- User user
+- Attempt attempt
++ {static} Creator<UserWithAttempts> CREATOR
++ void writeToParcel(Parcel,int)
++ int describeContents()
++ User getUser()
++ Attempt getAttempt()
+}
+class com.sagarkhurana.quizforfun.data.Attempt {
+- long createdTime
+- String subject
+- int correct
+- int incorrect
+- int earned
+- String email
+- int overallPoints
++ {static} Creator<Attempt> CREATOR
++ void setOverallPoints(int)
++ long getCreatedTime()
++ String getSubject()
++ int getCorrect()
++ int getIncorrect()
++ int getEarned()
++ String getEmail()
++ int getOverallPoints()
++ {static} Creator<Attempt> getCREATOR()
++ void writeToParcel(Parcel,int)
++ int describeContents()
+}
+class com.sagarkhurana.quizforfun.data.UserDatabaseClient {
+- {static} String DB_NAME
+- {static} UserDatabase instance
++ {static} UserDatabase getInstance(Context)
++ UserDatabase getUserDatabase()
+}
+class com.sagarkhurana.quizforfun.other.SharedPref {
+- {static} SharedPref instance
+- {static} String sharedPreferencesName
++ {static} SharedPref getInstance()
++ void setUser(Context,User)
++ User getUser(Context)
++ void clearSharedPref(Context)
+}
+class com.sagarkhurana.quizforfun.other.Convertor {
+~ String fromList(List<Attempt>)
+~ List<Attempt> toList(String)
+}
+class com.sagarkhurana.quizforfun.adapter.RulesViewPagerAdapter {
+~ Context ctx
++ int getCount()
++ boolean isViewFromObject(View,Object)
++ Object instantiateItem(ViewGroup,int)
++ void destroyItem(ViewGroup,int,Object)
+}
+class com.sagarkhurana.quizforfun.FinalResultActivity {
+- TextView tvSubject
+# void onCreate(Bundle)
++ void onBackPressed()
+- void getOverAllPoints(Attempt)
+- void displayData(Attempt)
+}
+class com.sagarkhurana.quizforfun.FinalResultActivity$GetOverallPointsTask {
+- Attempt attempt
+- int overallPoints
+# Void doInBackground(Void)
+# void onPostExecute(Void)
+}
+class com.sagarkhurana.quizforfun.FinalResultActivity$SaveUserAttemptTask {
+- Attempt attempt
+# Void doInBackground(Void)
+# void onPostExecute(Void)
+}
+class com.sagarkhurana.quizforfun.MainActivity {
+# void onCreate(Bundle)
+}
+class com.sagarkhurana.quizforfun.LoginActivity {
+- EditText etUsername
+# void onStart()
+# void onCreate(Bundle)
+- boolean validaInputs(String,String)
+}
+class com.sagarkhurana.quizforfun.LoginActivity$LoginUserTask {
+- String username
+- String password
+- ArrayList<User> users
+# Void doInBackground(Void)
+# void onPostExecute(Void)
+}
+interface com.sagarkhurana.quizforfun.data.UserDao {
+~ void insertUser(User)
+~ void insertAttempt(Attempt)
+~ void updateUser(User)
+~ List<User> observeAllUser()
+~ void deleteUser(User)
+~ List<Attempt> getUserAndAttemptsWithSameEmail(String)
+~ int getOverAllPoints(String)
+}
+class com.sagarkhurana.quizforfun.other.Constants {
++ {static} String USER
++ {static} String SUBJECT
++ {static} String CORRECT
++ {static} String INCORRECT
++ {static} String QUESTIONS
++ {static} int QUESTION_SHOWING
++ {static} int CORRECT_POINT
++ {static} int INCORRECT_POINT
++ {static} String DATE_FORMAT
+}
+class com.sagarkhurana.quizforfun.RuleActivity {
++ {static} ViewPager viewPager
+~ RulesViewPagerAdapter adapter
+# void onCreate(Bundle)
+}
+class com.sagarkhurana.quizforfun.GeographyOrLiteratureQuizActivity {
+- int currentQuestionIndex
+- TextView tvQuestion
+- Button btnNext
+- RadioGroup radioGroup
+- RadioButton radioButton1
+- List<String> questions
+- int correctQuestion
+- Map<String,Map<String,Boolean>> questionsAnswerMap
+# void onCreate(Bundle)
+- void displayNextQuestions()
+- void displayData()
+- void setAnswersToRadioButton()
+}
+class com.sagarkhurana.quizforfun.other.Utils {
++ {static} boolean isValidEmail(CharSequence)
++ {static} String formatDate(long)
++ {static} Map<String,String> getMathQuestions()
++ {static} Map<String,String> getRandomMathQuestions(int)
++ {static} Map<String,Map<String,Boolean>> getLiteratureQuestions()
++ {static} Map<String,Map<String,Boolean>> getGeographyQuestions()
++ {static} Map<String,Map<String,Boolean>> getRandomLiteratureAndGeographyQuestions(Context,String,int)
+}
+class com.sagarkhurana.quizforfun.adapter.HistoryAdapter {
+- List<Attempt> attempts
++ AttemptViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(AttemptViewHolder,int)
++ int getItemCount()
+}
+class com.sagarkhurana.quizforfun.adapter.HistoryAdapter$AttemptViewHolder {
++ TextView tvSubject
++ CardView cvParent
+}
+class com.sagarkhurana.quizforfun.data.User {
+- String username
+- String email
+- String password
++ {static} Creator<User> CREATOR
++ void setPassword(String)
++ String getUsername()
++ String getEmail()
++ String getPassword()
++ {static} Creator<User> getCREATOR()
++ void writeToParcel(Parcel,int)
++ int describeContents()
+}
+class com.sagarkhurana.quizforfun.QuizOptionActivity {
+# void onCreate(Bundle)
+}
+
+
+androidx.appcompat.app.AppCompatActivity <|-- com.sagarkhurana.quizforfun.EditPasswordActivity
+com.sagarkhurana.quizforfun.EditPasswordActivity +.. com.sagarkhurana.quizforfun.EditPasswordActivity$UpdatePasswordTask
+com.sagarkhurana.quizforfun.AsyncTask <|-- com.sagarkhurana.quizforfun.EditPasswordActivity$UpdatePasswordTask
+androidx.appcompat.app.AppCompatActivity <|-- com.sagarkhurana.quizforfun.HistoryActivity
+com.sagarkhurana.quizforfun.HistoryActivity +.. com.sagarkhurana.quizforfun.HistoryActivity$GetAllUserAttemptTask
+com.sagarkhurana.quizforfun.AsyncTask <|-- com.sagarkhurana.quizforfun.HistoryActivity$GetAllUserAttemptTask
+com.sagarkhurana.quizforfun.HistoryActivity +.. com.sagarkhurana.quizforfun.HistoryActivity$AttemptCreatedTimeComparator
+com.sagarkhurana.quizforfun.Comparator <|.. com.sagarkhurana.quizforfun.HistoryActivity$AttemptCreatedTimeComparator
+androidx.appcompat.app.AppCompatActivity <|-- com.sagarkhurana.quizforfun.RegisterActivity
+com.sagarkhurana.quizforfun.RegisterActivity +.. com.sagarkhurana.quizforfun.RegisterActivity$RegisterUserTask
+com.sagarkhurana.quizforfun.AsyncTask <|-- com.sagarkhurana.quizforfun.RegisterActivity$RegisterUserTask
+androidx.room.RoomDatabase <|-- com.sagarkhurana.quizforfun.data.UserDatabase
+androidx.appcompat.app.AppCompatActivity <|-- com.sagarkhurana.quizforfun.MathQuizActivity
+android.os.Parcelable <|.. com.sagarkhurana.quizforfun.data.UserWithAttempts
+android.os.Parcelable <|.. com.sagarkhurana.quizforfun.data.Attempt
+androidx.viewpager.widget.PagerAdapter <|-- com.sagarkhurana.quizforfun.adapter.RulesViewPagerAdapter
+androidx.appcompat.app.AppCompatActivity <|-- com.sagarkhurana.quizforfun.FinalResultActivity
+com.sagarkhurana.quizforfun.FinalResultActivity +.. com.sagarkhurana.quizforfun.FinalResultActivity$GetOverallPointsTask
+com.sagarkhurana.quizforfun.AsyncTask <|-- com.sagarkhurana.quizforfun.FinalResultActivity$GetOverallPointsTask
+com.sagarkhurana.quizforfun.FinalResultActivity +.. com.sagarkhurana.quizforfun.FinalResultActivity$SaveUserAttemptTask
+com.sagarkhurana.quizforfun.AsyncTask <|-- com.sagarkhurana.quizforfun.FinalResultActivity$SaveUserAttemptTask
+androidx.appcompat.app.AppCompatActivity <|-- com.sagarkhurana.quizforfun.MainActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.sagarkhurana.quizforfun.LoginActivity
+com.sagarkhurana.quizforfun.LoginActivity +.. com.sagarkhurana.quizforfun.LoginActivity$LoginUserTask
+com.sagarkhurana.quizforfun.AsyncTask <|-- com.sagarkhurana.quizforfun.LoginActivity$LoginUserTask
+androidx.appcompat.app.AppCompatActivity <|-- com.sagarkhurana.quizforfun.RuleActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.sagarkhurana.quizforfun.GeographyOrLiteratureQuizActivity
+com.sagarkhurana.quizforfun.adapter.Adapter <|-- com.sagarkhurana.quizforfun.adapter.HistoryAdapter
+com.sagarkhurana.quizforfun.adapter.HistoryAdapter +.. com.sagarkhurana.quizforfun.adapter.HistoryAdapter$AttemptViewHolder
+com.sagarkhurana.quizforfun.adapter.ViewHolder <|-- com.sagarkhurana.quizforfun.adapter.HistoryAdapter$AttemptViewHolder
+android.os.Parcelable <|.. com.sagarkhurana.quizforfun.data.User
+androidx.appcompat.app.AppCompatActivity <|-- com.sagarkhurana.quizforfun.QuizOptionActivity
+@enduml
