@@ -1,6 +1,6 @@
 # Quiz
 
-## 0. Thành viên
+## /. Thành viên
 - Nguyễn Thịnh Thuận - MSV: 21020410
 - Nguyễn Khắc Nam Huy - MSV: 21020542
 
