@@ -1,5 +1,9 @@
 # Quiz
 
+## 0. Thành viên
+- Nguyễn Thịnh Thuận - MSV: 21020410
+- Nguyễn Khắc Nam Huy - MSV: 21020542
+
 ## 1. Hướng dẫn cài đặt
 
 - Download code về thiết bị.
