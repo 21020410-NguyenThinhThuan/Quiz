@@ -112,6 +112,8 @@ public class MathQuizActivity extends AppCompatActivity {
 
                 if (btnNext.getText().equals(getString(R.string.next))){
                     displayNextQuestions();
+                    timeLeft = timeLimit;
+                    timer.start();
                 }else{
                     Intent intentResult = new Intent(MathQuizActivity.this,FinalResultActivity.class);
                     intentResult.putExtra(Constants.SUBJECT,getString(R.string.math));
