@@ -42,6 +42,20 @@
                 tools:text="@string/literature_quiz" />
 
             <TextView
+                android:id="@+id/timer2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_button"
+                android:text="30"
+                android:textAlignment="center"
+                style="@style/titleTextStyle"
+                android:layout_marginEnd="5dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView26"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView26"
+                app:layout_constraintTop_toTopOf="@+id/textView26" />
+
+            <TextView
                 android:id="@+id/textView78"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

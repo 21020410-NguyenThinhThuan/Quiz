@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -20,13 +21,17 @@ import java.util.Map;
 public class GeographyOrLiteratureQuizActivity extends AppCompatActivity {
 
     private int currentQuestionIndex = 0;
-    private TextView tvQuestion, tvQuestionNumber;
+    private TextView tvQuestion, tvQuestionNumber, timerView;
     private Button btnNext;
     private RadioGroup radioGroup;
     private RadioButton radioButton1, radioButton2, radioButton3, radioButton4;
     private List<String> questions;
     private int correctQuestion = 0;
     private Map<String, Map<String, Boolean>> questionsAnswerMap;
+
+    private CountDownTimer timer;
+    private static long timeLimit = 31000;
+    private long timeLeft = 31000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +62,51 @@ public class GeographyOrLiteratureQuizActivity extends AppCompatActivity {
         radioButton2 = findViewById(R.id.radioButton2);
         radioButton3 = findViewById(R.id.radioButton3);
         radioButton4 = findViewById(R.id.radioButton4);
+
+        timerView = findViewById(R.id.timer2);
+
+
+        timer = new CountDownTimer(timeLeft, 1000) {
+            @Override
+            public void onTick(long l) {
+                int secondsRemaining = (int) (l/1000) % 60;
+                String seconds = String.format("%02d",secondsRemaining);
+                timerView.setText(seconds);
+            }
+
+            @Override
+            public void onFinish() {
+
+                RadioButton radioButton =  findViewById(radioGroup.getCheckedRadioButtonId());
+                boolean answer = questionsAnswerMap.get(questions.get(currentQuestionIndex)).get(radioButton.getText());
+
+                if (answer){
+                    correctQuestion++;
+                }
+
+                currentQuestionIndex++;
+
+                if (btnNext.getText().equals(getString(R.string.next))){
+                    displayNextQuestions();
+                    timeLeft = timeLimit;
+                    timer.start();
+                }else{
+                    Intent intentResult = new Intent(GeographyOrLiteratureQuizActivity.this,FinalResultActivity.class);
+                    intentResult.putExtra(Constants.SUBJECT,subject);
+                    intentResult.putExtra(Constants.CORRECT,correctQuestion);
+                    intentResult.putExtra(Constants.INCORRECT,Constants.QUESTION_SHOWING - correctQuestion);
+                    intentResult.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intentResult);
+                    finish();
+                }
+
+            }
+
+            void resetTimer(){
+                timeLeft = timeLimit;
+                timer.start();
+            }
+        };
 
         findViewById(R.id.btnNextQuestionLiteratureAndGeography).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,6 +172,15 @@ public class GeographyOrLiteratureQuizActivity extends AppCompatActivity {
         radioButton3.setText(questionKey.get(2));
         radioButton4.setText(questionKey.get(3));
 
+    }
+
+    protected void onStart() {
+        super.onStart();
+        timer.start();
+    }
+    protected void onStop() {
+        super.onStop();
+        timer.cancel();
     }
 
 }

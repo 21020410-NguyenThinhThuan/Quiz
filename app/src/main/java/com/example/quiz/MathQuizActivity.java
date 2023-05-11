@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,12 +21,16 @@ import java.util.List;
 public class MathQuizActivity extends AppCompatActivity {
 
     private int currentQuestionIndex = 0;
-    private TextView tvQuestion, tvQuestionNumber;
+    private TextView tvQuestion, tvQuestionNumber, timerView;
     private Button btnNext;
     private List<String> questions;
     private int correctQuestion = 0;
     private EditText etAnswer;
     private HashMap<String, String> questionsAnswerMap;
+
+    private CountDownTimer timer;
+    private static long timeLimit = 31000;
+    private long timeLeft = 31000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +45,47 @@ public class MathQuizActivity extends AppCompatActivity {
         tvQuestionNumber = findViewById(R.id.tvQuestionNumberMath);
         btnNext = findViewById(R.id.btnNextQuestionMath);
         etAnswer = findViewById(R.id.tietEnterAnswerMath);
+
+        timerView = findViewById(R.id.timer);
+
+        timer = new CountDownTimer(timeLeft, 1000) {
+            @Override
+            public void onTick(long l) {
+                int secondsRemaining = (int) (l/1000) % 60;
+                String seconds = String.format("%02d",secondsRemaining);
+                timerView.setText(seconds);
+            }
+
+            @Override
+            public void onFinish() {
+
+                String answer = etAnswer.getText().toString();
+
+                if (questionsAnswerMap.get(questions.get(currentQuestionIndex)).equals(answer)) {
+                    correctQuestion++;
+                }
+                currentQuestionIndex++;
+
+                if (btnNext.getText().equals(getString(R.string.next))){
+                    displayNextQuestions();
+                    timeLeft = timeLimit;
+                    timer.start();
+                }else{
+                    Intent intentResult = new Intent(MathQuizActivity.this,FinalResultActivity.class);
+                    intentResult.putExtra(Constants.SUBJECT,getString(R.string.math));
+                    intentResult.putExtra(Constants.CORRECT,correctQuestion);
+                    intentResult.putExtra(Constants.INCORRECT,Constants.QUESTION_SHOWING - correctQuestion);
+                    intentResult.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intentResult);
+                    finish();
+                }
+            }
+
+            void resetTimer(){
+                    timeLeft = timeLimit;
+                    timer.start();
+            }
+        };
 
         findViewById(R.id.imageViewStartQuiz).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,4 +142,12 @@ public class MathQuizActivity extends AppCompatActivity {
         tvQuestionNumber.setText("Current Question: " + (currentQuestionIndex + 1));
     }
 
+    protected void onStart() {
+        super.onStart();
+        timer.start();
+    }
+    protected void onStop() {
+        super.onStop();
+        timer.cancel();
+    }
 }

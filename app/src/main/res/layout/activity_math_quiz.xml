@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/edit_text_bg"
     tools:context=".MathQuizActivity">
 
     <ImageView
@@ -22,14 +22,28 @@
 
     <TextView
         android:id="@+id/textView"
+        style="@style/titleTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:text="@string/math_quiz"
-        style="@style/titleTextStyle"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewStartQuiz"
         app:layout_constraintStart_toEndOf="@+id/imageViewStartQuiz"
         app:layout_constraintTop_toTopOf="@+id/imageViewStartQuiz" />
+
+    <TextView
+        android:id="@+id/timer"
+        style="@style/titleTextStyle"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="5dp"
+        android:background="@drawable/bg_button"
+        android:text="30"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView8"
