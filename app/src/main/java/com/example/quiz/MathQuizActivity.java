@@ -29,7 +29,7 @@ public class MathQuizActivity extends AppCompatActivity {
     private HashMap<String, String> questionsAnswerMap;
 
     private CountDownTimer timer;
-    private static long timeLimit = 31000;
+    private static final long timeLimit = 31000;
     private long timeLeft = 31000;
 
     @Override
@@ -87,12 +87,7 @@ public class MathQuizActivity extends AppCompatActivity {
             }
         };
 
-        findViewById(R.id.imageViewStartQuiz).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        findViewById(R.id.imageViewStartQuiz).setOnClickListener(view -> finish());
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override

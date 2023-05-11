@@ -30,7 +30,7 @@ public class GeographyOrLiteratureQuizActivity extends AppCompatActivity {
     private Map<String, Map<String, Boolean>> questionsAnswerMap;
 
     private CountDownTimer timer;
-    private static long timeLimit = 31000;
+    private static final long timeLimit = 31000;
     private long timeLeft = 31000;
 
     @Override
