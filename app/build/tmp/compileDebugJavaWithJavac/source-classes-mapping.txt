@@ -18,7 +18,6 @@ com/example/quiz/MathQuizActivity.java
  com.example.quiz.MathQuizActivity
  com.example.quiz.MathQuizActivity$1
  com.example.quiz.MathQuizActivity$2
- com.example.quiz.MathQuizActivity$3
 com/example/quiz/data/Attempt.java
  com.example.quiz.data.Attempt
  com.example.quiz.data.Attempt$1
