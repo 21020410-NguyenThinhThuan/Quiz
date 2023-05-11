@@ -16,6 +16,6 @@
 - Login, Sign up, edit password
 - Xem lịch sử làm bài
 ### 3. Video minh họa 
-[Quiz](https://drive.google.com/file/d/1xena4cAzZKpzsngcDqCbLwgV2dQbhEjT/view?fbclid=IwAR2QuVWQVft2ziDFDgl3A-ykvo4exvttwt3oFAwjUDztinpKKky0EU8JfUw)
+[Quiz](https://drive.google.com/file/d/1kTT7TY9zzEN5ytKOfK2ainRgtnkJSu6J/view?usp=share_link)
 
 
